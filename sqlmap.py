@@ -1,12 +1,12 @@
 #!/usr/bin/env python
-
+# -*- coding:utf-8 -*-
 """
 Copyright (c) 2006-2018 sqlmap developers (http://sqlmap.org/)
 See the file 'LICENSE' for copying permission
 """
 
 import sys
-
+#设置python运行后不生成pyc
 sys.dont_write_bytecode = True
 
 try:
@@ -30,6 +30,7 @@ import time
 import traceback
 import warnings
 
+#python warnings模块 忽略告警信息
 warnings.filterwarnings(action="ignore", message=".*was already imported", category=UserWarning)
 warnings.filterwarnings(action="ignore", category=DeprecationWarning)
 
@@ -70,6 +71,7 @@ except KeyboardInterrupt:
 
     raise SystemExit
 
+#返回模块路径
 def modulePath():
     """
     This will get us the program's directory, even if we are frozen
@@ -103,6 +105,7 @@ def checkEnvironment():
     # Patch for pip (import) environment
     if "sqlmap.sqlmap" in sys.modules:
         for _ in ("cmdLineOptions", "conf", "kb"):
+            #getattr(object,name) 
             globals()[_] = getattr(sys.modules["lib.core.data"], _)
 
         for _ in ("SqlmapBaseException", "SqlmapShellQuitException", "SqlmapSilentQuitException", "SqlmapUserQuitException"):
